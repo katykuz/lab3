@@ -1,38 +1,90 @@
+// AUTHOR:   Ekaterina Kuznetsova
+// FILENAME: lab3.cpp
+// DATE:     10/16/2022
+// PURPOSE:  This program prompts the user to input a filepath that includes
+//           a list of text on several lines. The program reads each line,
+//           removes spaces and changes uppercase letters to lower, and
+//           checks if the remains are a palindrome or not. The program
+//           prints the line and states whether it is a palindrome or not.
+// INPUT:    User input of filepath, user input on whether the user wants to
+//           repeat the program.
+// PROCESS:  Program checks if text of each line is palindrome.
+// OUTPUT:   Prints each line and whether it is a palindrome or not.
+
 #include <iostream>
 #include <string>
 #include <bits/stdc++.h>
 using namespace std;
 
 void welcome();
+// Welcome user to program and provide introduction
+// IN: none
+// MODIFY: none
+// OUT: none
 
-void getFilepath(string filepath);
+void getFilepath(string &filepath);
+// Receive and validate input from user for the filepath
+// IN: String variable holding filepath name
+// MODIFY: none
+// OUT:
 
-void intakeText(string filepath);
-
-bool isPalindrome(string line);
+void assessText(string &filepath);
+// Grab text line by line from file and push to validating string, then push
+// string to a palindrome checking function
+// IN: String variable holding filepath name
+// MODIFY: none
+// OUT:
 
 string validateString(string line);
+// Check if string has spaces or capital characters, omit spaces, swap
+// capital characters for lower case characters, push to ss to be new string.
+// IN: String variable holding line of text
+// MODIFY: none
+// OUT: String variable holding filepath name
+
+bool isPalindrome(string line);
+// If string length is 0 or 1, return true; if string length is 2, compare
+// s(0) character with s(1), if they are equal, return true, otherwise false;
+// If string length is greater than 2, compare most outer characters, if they
+// are equal, omit these letters when pushing string characters to ss to
+// create new string, and call isPalindrome with updated string, otherwise
+// return false.
+// IN: String variable holding updated line of text
+// MODIFY: none
+// OUT: True or false based on equality of characters in string
 
 void goodbye();
+// Thank the user for using the program.
+// IN: none
+// MODIFY: none
+// OUT: none
 
 int main() {
 
-    //welcome message&welcome function
+    //welcome message & welcome function
     welcome();
+
+    //declare string variable to hold user input
     string input;
 
     //do-while loop to enter files - program will not proceed without files
     do{
+
+        //declare string variable to hold filepath
         string filepath;
 
-
+        //get filename from user
         getFilepath(filepath);
+
+        //call function to take in content from file and
+        assessText(filepath);
 
         cout << "\nWould you like to enter another filepath? (Y for yes): ";
         cin >> input;
 
     }while(input == "Y" || input == "y");
 
+    //call goodbye function
     goodbye();
 
 }
@@ -57,7 +109,7 @@ void goodbye(){
     cout << goodbyeMsg;
 }
 
-void getFilepath(string filepath) {
+void getFilepath(string &filepath) {
 
     //prompt user for filepath
     cout << "\nEnter the file with text: ";
@@ -78,12 +130,9 @@ void getFilepath(string filepath) {
 
     }
 
-    //call function to take in content from file
-    intakeText(filepath);
-
 }
 
-void intakeText(string filepath) {
+void assessText(string &filepath) {
 
     //declare string variables to hold a line from file and a section of line
     string line;
@@ -116,7 +165,6 @@ void intakeText(string filepath) {
         }
 
     }
-
 
 }
 
